@@ -1,0 +1,109 @@
+Admin accounts in Element
+get-aduser -Filter {admincount -gt 0} -Properties adminCount -ResultSetSize $null -Server usnjdcs090.ven.sys.element.com| FT DistinguishedName,Enabled,SamAccountName
+
+SYS 
+DistinguishedName                                                  Enabled SamAccountName
+-----------------                                                  ------- --------------
+CN=krbtgt,CN=Users,DC=sys,DC=element,DC=com                          False krbtgt
+CN=Administrator,CN=Users,DC=sys,DC=element,DC=com                    True Administrator
+CN=NBConsult,OU=Users,OU=Accounts,DC=sys,DC=element,DC=com            True NBConsult
+CN=Backup Services,OU=Service,OU=Accounts,DC=sys,DC=element,DC=com    True sysbackup
+CN=ADAX Admin,OU=Service,OU=Accounts,DC=sys,DC=element,DC=com         True ADAXAdmin
+CN=ADCA Admin,OU=Privileged,OU=Accounts,DC=sys,DC=element,DC=com      True ADCAadmin
+CN=ADCA Backup,OU=Service,OU=Accounts,DC=sys,DC=element,DC=com        True ADCABackup
+
+ENT 
+---------
+CN=ADMIN David Whittaker,OU=Users,OU=Archive,DC=ent,DC=sys,DC=element,DC=com       False AdminDW
+CN=DSM BLS,OU=Service,OU=Accounts,DC=ent,DC=sys,DC=element,DC=com                   True DSM_BLS
+CN=DSM Distribution,OU=Service,OU=Accounts,DC=ent,DC=sys,DC=element,DC=com          True DSM_Distribution
+CN=DSM Install,OU=Service,OU=Accounts,DC=ent,DC=sys,DC=element,DC=com               True DSM_Install
+CN=DSM Runtime,OU=Service,OU=Accounts,DC=ent,DC=sys,DC=element,DC=com               True DSM_Runtime
+CN=DSM Depot,OU=Service,OU=Accounts,DC=ent,DC=sys,DC=element,DC=com                 True DSM_Depot
+CN=Backup Services,OU=Service,OU=Accounts,DC=ent,DC=sys,DC=element,DC=com           True entbackup
+CN=ADAX Services,OU=Service,OU=Accounts,DC=ent,DC=sys,DC=element,DC=com             True ADAXServices
+CN=ADAX Admin,OU=Service,OU=Accounts,DC=ent,DC=sys,DC=element,DC=com                True ADAXAdmin
+CN=NetMail Service,OU=Service,OU=Accounts,DC=ent,DC=sys,DC=element,DC=com           True NetmailSVC
+CN=Discovery Admin,OU=Service,OU=Accounts,DC=ent,DC=sys,DC=element,DC=com           True Discovery_Admin
+CN=Skype Admin,OU=Privileged,OU=Accounts,DC=ent,DC=sys,DC=element,DC=com            True admins4b
+CN=DSM Admin,OU=Privileged,OU=Accounts,DC=ent,DC=sys,DC=element,DC=com              True DSM_Admin
+CN=Admin Vlad Mamalyga,OU=Privileged,OU=Accounts,DC=ent,DC=sys,DC=element,DC=com    True vmadmin
+CN=ADMIN Sean Steward,OU=Privileged,OU=Accounts,DC=ent,DC=sys,DC=element,DC=com     True AdminSS
+CN=Administrator,CN=Users,DC=ent,DC=sys,DC=element,DC=com                           True Administrator
+CN=krbtgt,CN=Users,DC=ent,DC=sys,DC=element,DC=com                                 False krbtgt
+
+EU
+------- --------------
+CN=Administrator,CN=Users,DC=eu,DC=sys,DC=element,DC=com                                 True Administrator
+CN=krbtgt,CN=Users,DC=eu,DC=sys,DC=element,DC=com                                       False krbtgt
+CN=SVC-QMM-SRC,OU=Service,OU=Accounts,DC=eu,DC=sys,DC=element,DC=com                     True SVC-QMM-SRC
+CN=SVC-QMM-TRG,OU=Service,OU=Accounts,DC=eu,DC=sys,DC=element,DC=com                     True SVC-QMM-TRG
+CN=FM Build,OU=Users,OU=Archive,DC=eu,DC=sys,DC=element,DC=com                          False FMBuild
+CN=Steven McAdam,OU=Users,OU=Accounts,DC=eu,DC=sys,DC=element,DC=com                     True SMcAdam
+CN=Bert Lenderink,OU=Users,OU=Accounts,DC=eu,DC=sys,DC=element,DC=com                    True BLender
+CN=Sebastian Waanders,OU=Users,OU=Accounts,DC=eu,DC=sys,DC=element,DC=com                True Swaander
+CN=PQ Testing,OU=Misc,OU=Accounts,DC=eu,DC=sys,DC=element,DC=com                         True PBerlin
+CN=Richard La Grange,OU=Users,OU=Accounts,DC=eu,DC=sys,DC=element,DC=com                 True RGrange
+CN=Howard Chu,OU=Users,OU=Accounts,DC=eu,DC=sys,DC=element,DC=com                        True HChu
+CN=Rek Chong,OU=Users,OU=Accounts,DC=eu,DC=sys,DC=element,DC=com                         True RChong
+CN=Dave Featherston,OU=Users,OU=Accounts,DC=eu,DC=sys,DC=element,DC=com                  True dfeathe
+CN=Backup Services,OU=Service,OU=Accounts,DC=eu,DC=sys,DC=element,DC=com                 True eubackup
+CN=ADAX Admin,OU=Service,OU=Accounts,DC=eu,DC=sys,DC=element,DC=com                      True ADAXAdmin
+CN=Manager Richard La Grange,OU=Privileged,OU=Accounts,DC=eu,DC=sys,DC=element,DC=com    True RGManager
+CN=Manager Dave Featherston,OU=Privileged,OU=Accounts,DC=eu,DC=sys,DC=element,DC=com     True DFManager
+CN=Support Richard La Grange,OU=Privileged,OU=Accounts,DC=eu,DC=sys,DC=element,DC=com    True RGSupport
+CN=Manager David Whittaker,OU=Privileged,OU=Accounts,DC=eu,DC=sys,DC=element,DC=com      True DWManager
+CN=Manager Howard Chu,OU=Privileged,OU=Accounts,DC=eu,DC=sys,DC=element,DC=com           True HCManager
+CN=Vendor Skype,OU=Misc,OU=Accounts,DC=eu,DC=sys,DC=element,DC=com                       True SBVEN
+CN=Manager James Fleming,OU=Privileged,OU=Accounts,DC=eu,DC=sys,DC=element,DC=com        True JFManager
+CN=Manager Peter Greenan,OU=Privileged,OU=Accounts,DC=eu,DC=sys,DC=element,DC=com        True PGManager
+CN=Manager Vlad Mamalyga,OU=Privileged,OU=Accounts,DC=eu,DC=sys,DC=element,DC=com        True vmmanager
+
+US                                                                           Enabled SamAccountName
+-----------------                                                                     ------- --------------
+CN=krbtgt,CN=Users,DC=us,DC=sys,DC=element,DC=com                                       False krbtgt
+CN=Administrator,CN=Users,DC=us,DC=sys,DC=element,DC=com                                 True Administrator
+CN=SVC-QMM-SRC,OU=Service,OU=Accounts,DC=us,DC=sys,DC=element,DC=com                     True SVC-QMM-SRC
+CN=SVC-QMM-TRG,OU=Service,OU=Accounts,DC=us,DC=sys,DC=element,DC=com                     True SVC-QMM-TRG
+CN=ADMIN Martin McElaney,OU=Users,OU=Archive,DC=us,DC=sys,DC=element,DC=com             False MMAdmin
+CN=David Windham,OU=Users,OU=Accounts,DC=us,DC=sys,DC=element,DC=com                     True dwindha
+CN=Laurie Tell,OU=Users,OU=Accounts,DC=us,DC=sys,DC=element,DC=com                       True ltell
+CN=Mark Tipton,OU=Users,OU=Accounts,DC=us,DC=sys,DC=element,DC=com                       True MTipton
+CN=Randy Moore,OU=Users,OU=Accounts,DC=us,DC=sys,DC=element,DC=com                       True RMoore
+CN=Randy Oertel,OU=Users,OU=Archive,DC=us,DC=sys,DC=element,DC=com                      False ROertel
+CN=Sean Steward,OU=Users,OU=Accounts,DC=us,DC=sys,DC=element,DC=com                      True SStewar
+CN=SQL,OU=Users,OU=Archive,DC=us,DC=sys,DC=element,DC=com                               False SQL
+CN=Marvin Cronier,OU=Users,OU=Accounts,DC=us,DC=sys,DC=element,DC=com                    True MCronie
+CN=NB-Admin,OU=Users,OU=Archive,DC=us,DC=sys,DC=element,DC=com                          False NBadmin
+CN=Todd Seversen,OU=Users,OU=Accounts,DC=us,DC=sys,DC=element,DC=com                     True TSevers
+CN=Mark Bagtaz,OU=Users,OU=Archive,DC=us,DC=sys,DC=element,DC=com                       False MBagtaz
+CN=Newtown Chemlab,OU=Misc,OU=Accounts,DC=us,DC=sys,DC=element,DC=com                    True Newtown.Chemlab
+CN=Dan Farrington,OU=Users,OU=Accounts,DC=us,DC=sys,DC=element,DC=com                    True dfarrin
+CN=Mark Scally,OU=Users,OU=Accounts,DC=us,DC=sys,DC=element,DC=com                       True MScally
+CN=Backup Services,OU=Service,OU=Accounts,DC=us,DC=sys,DC=element,DC=com                 True usbackup
+CN=ADAX Admin,OU=Service,OU=Accounts,DC=us,DC=sys,DC=element,DC=com                      True ADAXAdmin
+CN=Manager Marvin Cronier,OU=Privileged,OU=Accounts,DC=us,DC=sys,DC=element,DC=com       True MCManager
+CN=Manager Sean B. Steward,OU=Privileged,OU=Accounts,DC=us,DC=sys,DC=element,DC=com      True SSManager
+CN=Manager Mark Scally,OU=Privileged,OU=Accounts,DC=us,DC=sys,DC=element,DC=com          True MSManager
+CN=Manager Vladimir Mamalyga,OU=Privileged,OU=Accounts,DC=us,DC=sys,DC=element,DC=com    True VMManager
+CN=Manager Pavel Turov,OU=Privileged,OU=Accounts,DC=us,DC=sys,DC=element,DC=com          True PTManager
+CN=Manager Mat Smith,OU=Privileged,OU=Accounts,DC=us,DC=sys,DC=element,DC=com            True MSmmanager
+CN=Manager Marian Vintilescu,OU=Users,OU=Archive,DC=us,DC=sys,DC=element,DC=com         False MVManager
+CN=Manager Steve Graham,OU=Privileged,OU=Accounts,DC=us,DC=sys,DC=element,DC=com         True sgmanager
+CN=Manager Edmund DeNully,OU=Privileged,OU=Accounts,DC=us,DC=sys,DC=element,DC=com       True EDManager
+
+VEN
+----------
+CN=Brian Reid,OU=Vendors-Cloud,OU=Ac...                                    True breid
+CN=ADAX Admin,OU=Service,OU=Accounts...                                    True ADAXAdmin
+CN=eposervices,OU=Service,OU=Account...                                    True eposervices
+CN=Backup Services,OU=Service,OU=Acc...                                    True venbackup
+CN=Administrator,CN=Users,DC=ven,DC=...                                    True Administrator
+CN=krbtgt,CN=Users,DC=ven,DC=sys,DC=...                                   False krbtgt
+
+Timed out
+PS C:\Users\nbconsult> get-aduser -Filter {admincount -gt 0} -Properties adminCount -ResultSetSize $null -Server usnjdcs050.me.sys.element.com| FT DistinguishedName,Enabled,SamAccountName
+PS C:\Users\nbconsult> get-aduser -Filter {admincount -gt 0} -Properties adminCount -ResultSetSize $null -Server usnjdcs060.ap.sys.element.com| FT DistinguishedName,Enabled,SamAccountName
+PS C:\Users\nbconsult> get-aduser -Filter {admincount -gt 0} -Properties adminCount -ResultSetSize $null -Server usnjdcs070.cn.sys.element.com| FT DistinguishedName,Enabled,SamAccountName
+
+
