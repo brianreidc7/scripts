@@ -14,10 +14,10 @@
     The file path to the CSV mapping file to import (default: .\ObjectGUID_Mapping.csv)
 
 .EXAMPLE
-    .\Import-ObjectGUID2ConsistencyGUID.ps1 -DestinationDirectory "DestTenant"
+    .\Import-ObjectGUID2ConsistencyGUID.ps1 -DestinationDirectory "DC=contoso,DC=com"
 
 .EXAMPLE
-    .\Import-ObjectGUID2ConsistencyGUID.ps1 -DestinationDirectory "DestTenant" -ExportPath "C:\temp\mapping.csv"
+    .\Import-ObjectGUID2ConsistencyGUID.ps1 -DestinationDirectory "DC=contoso,DC=com" -ExportPath "C:\temp\mapping.csv"
 #>
 
 param(
