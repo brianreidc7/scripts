@@ -41,9 +41,9 @@ catch {
 $ErrorActionPreference = "Stop"
 $VerbosePreference = "Continue"
 
-Write-Host "=" * 80
+Write-Host "================================================================================"
 Write-Host "ObjectGUID & PrimarySMTPAddress Import Tool"
-Write-Host "=" * 80
+Write-Host "================================================================================"
 Write-Host ""
 
 # ===== IMPORT PHASE =====
