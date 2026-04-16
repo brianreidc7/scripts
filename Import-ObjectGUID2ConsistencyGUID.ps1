@@ -133,7 +133,7 @@ try {
                         # Values are the same, mark as success
                         $msDSConsistencyGUIDStatus = "SUCCESS"
                         $updatedCount++
-                        Write-Host "MATCHED AND UPDATED: $primarySmtp -> msDSConsistencyGUID already set correctly" -ForegroundColor Green
+                        Write-Host "MATCHED: $primarySmtp -> msDSConsistencyGUID already set correctly" -ForegroundColor Green
                     }
                 }
                 else {
