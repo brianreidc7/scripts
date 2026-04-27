@@ -266,14 +266,62 @@ elseif ($Section -eq "2") {
             exit 0
         }
         
+        # Ensure Microsoft Graph connection for guest invitations
+        $graphConnected = $false
+        try {
+            if (-not (Get-Module -ListAvailable -Name Microsoft.Graph.Identity.SignIns)) {
+                Write-Host "⚠ Microsoft.Graph.Identity.SignIns module not installed. Guest invitations will be skipped." -ForegroundColor Yellow
+                Write-Host "   Install with: Install-Module Microsoft.Graph.Identity.SignIns" -ForegroundColor Yellow
+            }
+            else {
+                Import-Module Microsoft.Graph.Identity.SignIns -ErrorAction Stop
+                $mgContext = Get-MgContext -ErrorAction SilentlyContinue
+                if ($null -eq $mgContext) {
+                    Write-Host "Connecting to Microsoft Graph (User.Invite.All scope)..." -ForegroundColor Cyan
+                    Connect-MgGraph -Scopes "User.Invite.All", "User.ReadWrite.All" -NoWelcome -ErrorAction Stop
+                }
+                $graphConnected = $true
+                Write-Host "✓ Connected to Microsoft Graph" -ForegroundColor Green
+            }
+        }
+        catch {
+            Write-Host "⚠ Could not connect to Microsoft Graph: $_" -ForegroundColor Yellow
+            Write-Host "   Guest invitations will be skipped." -ForegroundColor Yellow
+        }
+
         $deleted = 0
         $failed = 0
+        $invited = 0
+        $inviteFailed = 0
         
         foreach ($contact in $mailcontacts) {
             try {
                 Remove-MailContact -Identity $contact.Identity -Confirm:$false -ErrorAction Stop
                 Write-Host "✓ Deleted: $($contact.DisplayName) ($($contact.PrimarySmtpAddress))" -ForegroundColor Green
                 $deleted++
+
+                # Invite the same email address as a guest, without sending an invitation
+                if ($graphConnected) {
+                    try {
+                        $invitedEmail = $contact.PrimarySmtpAddress
+                        $invitedName = if ([string]::IsNullOrWhiteSpace($contact.DisplayName)) { $invitedEmail } else { $contact.DisplayName }
+
+                        $invitationParams = @{
+                            InvitedUserEmailAddress = $invitedEmail
+                            InvitedUserDisplayName  = $invitedName
+                            InviteRedirectUrl       = "https://myapps.microsoft.com"
+                            SendInvitationMessage   = $false
+                        }
+
+                        $invitation = New-MgInvitation @invitationParams -ErrorAction Stop
+                        Write-Host "  ✓ Invited as guest: $invitedEmail (no invitation email sent)" -ForegroundColor Green
+                        $invited++
+                    }
+                    catch {
+                        Write-Host "  ✗ Failed to invite $($contact.PrimarySmtpAddress) as guest: $_" -ForegroundColor Red
+                        $inviteFailed++
+                    }
+                }
             }
             catch {
                 Write-Host "✗ Failed to delete $($contact.DisplayName): $_" -ForegroundColor Red
@@ -287,6 +335,8 @@ elseif ($Section -eq "2") {
         Write-Host "╚════════════════════════════════════════════════════════════╝" -ForegroundColor Yellow
         Write-Host "Successfully deleted: $deleted" -ForegroundColor Green
         Write-Host "Failed to delete: $failed" -ForegroundColor Red
+        Write-Host "Guest invitations created: $invited" -ForegroundColor Green
+        Write-Host "Guest invitations failed: $inviteFailed" -ForegroundColor Red
     }
     catch {
         Write-Host "✗ Error: $_" -ForegroundColor Red
