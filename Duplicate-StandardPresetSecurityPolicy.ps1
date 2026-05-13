@@ -12,8 +12,10 @@
       - Safe Attachments (SafeAttachmentsPolicy) [requires Defender for Office 365 Plan 1 or 2]
 
     Each policy is created as a standalone custom policy and its associated rule is created
-    in a DISABLED state so it does not immediately affect users. Configure recipient conditions
-    on each rule and enable them when ready.
+    in a DISABLED state so it does not immediately affect users. Recipient conditions are
+    set on each rule and the priority is set to 0 so it appears immediately below the current
+    preset policies. You must configure conditions (e.g. applies to domain) and enable the
+    rules before they take effect.
 
 .PARAMETER PolicyName
     The name for the duplicated policies. Defaults to "Standard Preset Policy - Duplicate".
@@ -243,7 +245,7 @@ try {
             $params = Get-CopyableParams -Policy $source
             New-HostedContentFilterPolicy -Name $PolicyName @params -ErrorAction Stop | Out-Null
             New-HostedContentFilterRule -Name $PolicyName -HostedContentFilterPolicy $PolicyName @ruleCondition `
-                -Enabled $false -ErrorAction Stop | Out-Null
+                -Enabled $false -Priority 0 -ErrorAction Stop | Out-Null
             Write-Host "  Policy and rule created (rule disabled)." -ForegroundColor Green
             $results['AntiSpam'] = 'Created'
         }
@@ -282,7 +284,7 @@ try {
             $params = Get-CopyableParams -Policy $source
             New-MalwareFilterPolicy -Name $PolicyName @params -ErrorAction Stop | Out-Null
             New-MalwareFilterRule -Name $PolicyName -MalwareFilterPolicy $PolicyName @ruleCondition `
-                -Enabled $false -ErrorAction Stop | Out-Null
+                -Enabled $false -Priority 0 -ErrorAction Stop | Out-Null
             Write-Host "  Policy and rule created (rule disabled)." -ForegroundColor Green
             $results['AntiMalware'] = 'Created'
         }
@@ -321,7 +323,7 @@ try {
             $params = Get-CopyableParams -Policy $source
             New-AntiPhishPolicy -Name $PolicyName @params -ErrorAction Stop | Out-Null
             New-AntiPhishRule -Name $PolicyName -AntiPhishPolicy $PolicyName @ruleCondition `
-                -Enabled $false -ErrorAction Stop | Out-Null
+                -Enabled $false -Priority 0 -ErrorAction Stop | Out-Null
             Write-Host "  Policy and rule created (rule disabled)." -ForegroundColor Green
             $results['AntiPhish'] = 'Created'
         }
@@ -360,7 +362,7 @@ try {
             $params = Get-CopyableParams -Policy $source
             New-SafeLinksPolicy -Name $PolicyName @params -ErrorAction Stop | Out-Null
             New-SafeLinksRule -Name $PolicyName -SafeLinksPolicy $PolicyName @ruleCondition `
-                -Enabled $false -ErrorAction Stop | Out-Null
+                -Enabled $false -Priority 0 -ErrorAction Stop | Out-Null
             Write-Host "  Policy and rule created (rule disabled)." -ForegroundColor Green
             $results['SafeLinks'] = 'Created'
         }
@@ -402,11 +404,11 @@ try {
         $results['SafeAttachments'] = 'Skipped (already exists)'
     }
     else {
-        if ($PSCmdlet.ShouldProcess($PolicyName, 'New-SafeAttachmentsPolicy')) {
+        if ($PSCmdlet.ShouldProcess($PolicyName, 'New-SafeAttachmentPolicy')) {
             $params = Get-CopyableParams -Policy $source
             New-SafeAttachmentPolicy -Name $PolicyName @params -ErrorAction Stop | Out-Null
-            New-SafeAttachmentRule -Name $PolicyName -SafeAttachmentsPolicy $PolicyName @ruleCondition `
-                -Enabled $false -ErrorAction Stop | Out-Null
+            New-SafeAttachmentRule -Name $PolicyName -SafeAttachmentPolicy $PolicyName @ruleCondition `
+                -Enabled $false -Priority 0 -ErrorAction Stop | Out-Null
             Write-Host "  Policy and rule created (rule disabled)." -ForegroundColor Green
             $results['SafeAttachments'] = 'Created'
         }
