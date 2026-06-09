@@ -114,7 +114,7 @@ function Get-CopyableParams {
         [object]$Policy,
 
         [string[]]$ExcludeProperties = @(
-            'ZapEnabled', 'EnableSuspiciousSafetyTip'
+            'ZapEnabled', 'EnableSuspiciousSafetyTip', 'PolicyTag'
         )
     )
 
