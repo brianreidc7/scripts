@@ -114,7 +114,8 @@ function Get-CopyableParams {
         [object]$Policy,
 
         [string[]]$ExcludeProperties = @(
-            'ZapEnabled', 'EnableSuspiciousSafetyTip', 'PolicyTag'
+            'ZapEnabled', 'EnableSuspiciousSafetyTip', 'PolicyTag', 'EnableOrganizationBranding', 
+            'EnableBlockingEncryptedAttachments', 'QuarantineTagForBlockingEncryptedAttachments'
         )
     )
 
@@ -124,8 +125,7 @@ function Get-CopyableParams {
         'ObjectState', 'IsDefault', 'IsBuiltIn', 'IsPreset', 'RecommendedPolicyType',
         'ExchangeVersion', 'OrganizationId', 'PSShowComputerName', 'PSComputerName',
         'RunspaceId', 'AdminDisplayName', 'Rules', 'ObjectCategory', 'IsValid', 'ObjectClass',
-        'OriginatingServer', 'OrganizationalUnitRoot', 'IsPolicyOverrideApplied', 'IsBuiltInProtection',
-        'EnableOrganizationBranding', 'EnableBlockingEncryptedAttachments', 'QuarantineTagForBlockingEncryptedAttachments'
+        'OriginatingServer', 'OrganizationalUnitRoot', 'IsPolicyOverrideApplied', 'IsBuiltInProtection'
     )
 
     $skip = $metadataProps + $ExcludeProperties
