@@ -6,25 +6,38 @@
     For each mailbox in a migration batch, retrieves the move request statistics (including the
     detailed migration report) and exports two files per mailbox:
       - A CSV containing all statistics properties
-      - A CSV containing the full migration report log entries
+      - A TXT file containing the full migration report log entries
 
-    Completed migrations are named:    <mailbox>-<yyyyMMdd-HHmmss>-Statistics.csv / -Report.csv
+    Completed migrations are named:    <mailbox>-<yyyyMMdd-HHmmss>-Statistics.csv / -Report.txt
     In-progress (or any non-completed) migrations are named:
-                                        <mailbox>-inProgress-Statistics.csv / -Report.csv
+                                        <mailbox>-inProgress-Statistics.csv / -Report.txt
 
 .PARAMETER BatchName
     The name of the migration batch to process. If omitted, all migration batches are processed.
 
 .PARAMETER OutputPath
-    The folder path where export files will be saved. Defaults to the current directory.
+    The folder path where export files will be saved. Defaults to C:\temp.
     Sub-folders are created per batch when more than one batch is processed.
+
+.PARAMETER RemoveInProgressFiles
+    When a migration is now complete, automatically delete any existing -inProgress files
+    for that mailbox before writing the new dated files.
+
+.EXAMPLE
+    .\Export-MigrationBatchMoveRequestReports.ps1 -BatchName "Batch-Wave1"
+    Exports to the default folder C:\temp.
+
+.EXAMPLE
+    .\Export-MigrationBatchMoveRequestReports.ps1 -BatchName "Batch-Wave1" -RemoveInProgressFiles
+    Exports to C:\temp and removes any stale -inProgress files for completed mailboxes.
 
 .EXAMPLE
     .\Export-MigrationBatchMoveRequestReports.ps1 -BatchName "Batch-Wave1" -OutputPath "C:\MigrationReports"
+    Exports to a custom folder.
 
 .EXAMPLE
     .\Export-MigrationBatchMoveRequestReports.ps1 -OutputPath "C:\MigrationReports"
-    Processes all migration batches.
+    Processes all migration batches into a custom folder.
 
 .NOTES
     Requires an active Exchange Online connection (Connect-ExchangeOnline).
@@ -35,8 +48,11 @@ param (
     [Parameter(Mandatory = $false, HelpMessage = 'Name of the migration batch to process. Omit to process all batches.')]
     [string]$BatchName,
 
-    [Parameter(Mandatory = $false, HelpMessage = 'Output folder for the exported files.')]
-    [string]$OutputPath = (Get-Location).Path
+    [Parameter(Mandatory = $false, HelpMessage = 'Output folder for the exported files. Defaults to C:\temp.')]
+    [string]$OutputPath = 'C:\temp',
+
+    [Parameter(Mandatory = $false, HelpMessage = 'Delete stale -inProgress files when a migration is found to be complete.')]
+    [switch]$RemoveInProgressFiles
 )
 
 #region Helpers
@@ -83,16 +99,11 @@ foreach ($batch in $batches) {
     $batchName = $batch.Identity.ToString()
     Write-Host "`nBatch: $batchName" -ForegroundColor Cyan
 
-    # When processing multiple batches, isolate each in its own sub-folder
-    $batchOutputPath = if ($batches.Count -gt 1) {
-        $subFolder = Join-Path -Path $OutputPath -ChildPath (Get-SafeFileName $batchName)
-        if (-not (Test-Path -Path $subFolder)) {
-            New-Item -ItemType Directory -Path $subFolder -Force | Out-Null
-        }
-        $subFolder
-    }
-    else {
-        $OutputPath
+    # Always create a sub-folder named after the batch
+    $batchOutputPath = Join-Path -Path $OutputPath -ChildPath (Get-SafeFileName $batchName)
+    if (-not (Test-Path -Path $batchOutputPath)) {
+        New-Item -ItemType Directory -Path $batchOutputPath -Force | Out-Null
+        Write-Verbose "Created batch folder: $batchOutputPath"
     }
 
     # ── Get all users in this batch via Get-MigrationUser ─────────────────────
@@ -113,6 +124,9 @@ foreach ($batch in $batches) {
 
     Write-Host "  $($migrationUsers.Count) migration user(s) found." -ForegroundColor Gray
 
+    # Collect stats for all mailboxes so we can write a batch-level summary
+    $batchStatsList = [System.Collections.Generic.List[object]]::new()
+
     foreach ($migUser in $migrationUsers) {
 
         # Use the user's primary address / identity as the mailbox identifier
@@ -122,32 +136,55 @@ foreach ($batch in $batches) {
 
         try {
             $stats = Get-MoveRequestStatistics -Identity $mailboxId -IncludeReport -ErrorAction Stop
+            Write-Verbose "       Status: $($stats.Status.ToString()) | CompletionTimestamp: $($stats.CompletionTimestamp)"
 
             # ── Build the file-name base ────────────────────────────────────
             $completedStatuses = @('Completed', 'CompletedWithWarning')
+            $statusString = $stats.Status.ToString()
 
-            if ($stats.Status -in $completedStatuses -and $stats.CompletionTimestamp) {
+            $safeMailboxId = Get-SafeFileName $mailboxId
+
+            if ($statusString -in $completedStatuses -and $stats.CompletionTimestamp) {
                 $dateSuffix = ([datetime]$stats.CompletionTimestamp).ToString('yyyyMMdd-HHmmss')
-                $fileBase   = Get-SafeFileName "$mailboxId-$dateSuffix"
+                $fileBase   = "$safeMailboxId-$dateSuffix"
+
+                # ── Remove stale -inProgress files if switch is set ─────────
+                if ($RemoveInProgressFiles) {
+                    $stalePattern = "$safeMailboxId-inProgress-*.*"
+                    $staleFiles = Get-ChildItem -Path $batchOutputPath -Filter $stalePattern -ErrorAction SilentlyContinue
+                    foreach ($stale in $staleFiles) {
+                        Remove-Item -Path $stale.FullName -Force
+                        Write-Host "    Removed stale file: $($stale.Name)" -ForegroundColor DarkYellow
+                    }
+                }
             }
             else {
-                $fileBase = Get-SafeFileName "$mailboxId-inProgress"
+                $fileBase = "$safeMailboxId-inProgress"
             }
 
             # ── Export statistics (all scalar properties, no Report blob) ───
             $statsPath = Join-Path -Path $batchOutputPath -ChildPath "$fileBase-Statistics.csv"
+
+            if (Test-Path -Path $statsPath) {
+                Write-Host "    Skipped (already exists): $fileBase" -ForegroundColor DarkGray
+                continue
+            }
+
             $stats |
-                Select-Object -ExcludeProperty Report |
+                Select-Object -ExcludeProperty Report,RolloutNames |
                 Export-Csv -Path $statsPath -NoTypeInformation -Encoding UTF8 -Force
-            Write-Verbose "    Statistics -> $statsPath"
+            Write-Verbose "       Statistics -> $statsPath"
+
+            # Accumulate for batch summary (exclude Report blob)
+            $batchStatsList.Add(($stats | Select-Object -ExcludeProperty Report,RolloutNames))
 
             # ── Export report log entries ────────────────────────────────────
             if ($stats.Report -and $stats.Report.Entries) {
-                $reportPath = Join-Path -Path $batchOutputPath -ChildPath "$fileBase-Report.csv"
-                $stats.Report.Entries |
-                    Select-Object -Property CreationTime, Type, Description |
-                    Export-Csv -Path $reportPath -NoTypeInformation -Encoding UTF8 -Force
-                Write-Verbose "    Report     -> $reportPath"
+                $reportPath = Join-Path -Path $batchOutputPath -ChildPath "$fileBase-Report.txt"
+                $stats |
+                    Select-Object -Property Report |
+                    Out-File -Path $reportPath -Encoding UTF8 -Force
+                Write-Verbose "       Report     -> $reportPath"
             }
 
             Write-Host "    Exported: $fileBase" -ForegroundColor Green
@@ -157,6 +194,21 @@ foreach ($batch in $batches) {
             Write-Warning "Failed to export data for '$mailboxId': $_"
             $totalFailed++
         }
+    }
+
+    # ── Batch summary file (always replaced) ────────────────────────────────
+    if ($batchStatsList.Count -gt 0) {
+        $safeBatchName    = Get-SafeFileName $batchName
+        $batchSummaryPath = Join-Path -Path $batchOutputPath -ChildPath "$safeBatchName-BatchSummary.csv"
+
+        if (Test-Path -Path $batchSummaryPath) {
+            Remove-Item -Path $batchSummaryPath -Force
+            Write-Verbose "    Deleted existing batch summary: $batchSummaryPath"
+        }
+
+        $batchStatsList |
+            Export-Csv -Path $batchSummaryPath -NoTypeInformation -Encoding UTF8 -Force
+        Write-Host "  Batch summary written: $(Split-Path $batchSummaryPath -Leaf)" -ForegroundColor Cyan
     }
 }
 
