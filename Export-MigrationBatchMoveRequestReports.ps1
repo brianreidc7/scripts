@@ -182,7 +182,7 @@ foreach ($batch in $batches) {
             if ($stats.Report -and $stats.Report.Entries) {
                 $reportPath = Join-Path -Path $batchOutputPath -ChildPath "$fileBase-Report.txt"
                 $stats |
-                    Select-Object -Property Report |
+                    Select-Object -Property Report | Format-List |
                     Out-File -Path $reportPath -Encoding UTF8 -Force
                 Write-Verbose "       Report     -> $reportPath"
             }
