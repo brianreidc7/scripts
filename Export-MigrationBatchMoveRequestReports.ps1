@@ -149,9 +149,10 @@ foreach ($batch in $batches) {
                 $fileBase   = "$safeMailboxId-$dateSuffix"
 
                 # ── Remove stale -inProgress files if switch is set ─────────
+                # Matches: -Statistics.csv, -Report.txt, -BadItemsHistory.txt
                 if ($RemoveInProgressFiles) {
-                    $stalePattern = "$safeMailboxId-inProgress-*.*"
-                    $staleFiles = Get-ChildItem -Path $batchOutputPath -Filter $stalePattern -ErrorAction SilentlyContinue
+                    $staleFiles = Get-ChildItem -Path $batchOutputPath -ErrorAction SilentlyContinue |
+                        Where-Object { $_.Name -like "$safeMailboxId-inProgress-*" }
                     foreach ($stale in $staleFiles) {
                         Remove-Item -Path $stale.FullName -Force
                         Write-Host "    Removed stale file: $($stale.Name)" -ForegroundColor DarkYellow
@@ -185,6 +186,17 @@ foreach ($batch in $batches) {
                     Select-Object -Property Report | Format-List |
                     Out-File -Path $reportPath -Encoding UTF8 -Force
                 Write-Verbose "       Report     -> $reportPath"
+            }
+
+            # ── Export bad items history if BadItems > 0 (any status) ─────
+            if ($stats.BadItemsEncountered -gt 0 -and
+                $stats.Report -and $stats.Report.BadItemsHistory) {
+
+                $badItemsPath = Join-Path -Path $batchOutputPath -ChildPath "$fileBase-BadItemsHistory.txt"
+                $stats.Report.BadItemsHistory |
+                    Out-File -Path $badItemsPath -Encoding UTF8 -Force
+                Write-Verbose "       BadItemsHistory -> $badItemsPath"
+                Write-Host "    Bad items history exported ($($stats.BadItemsEncountered) bad item(s)): $(Split-Path $badItemsPath -Leaf)" -ForegroundColor Yellow
             }
 
             Write-Host "    Exported: $fileBase" -ForegroundColor Green
