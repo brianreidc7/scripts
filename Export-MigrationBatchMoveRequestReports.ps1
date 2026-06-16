@@ -129,8 +129,17 @@ foreach ($batch in $batches) {
 
     foreach ($migUser in $migrationUsers) {
 
-        # Use the user's primary address / identity as the mailbox identifier
-        $mailboxId = $migUser.Identity.ToString()
+        $mailboxId     = $migUser.Identity.ToString()
+        $safeMailboxId = Get-SafeFileName $mailboxId
+
+        # ── Pre-check: skip only if a COMPLETED (timestamped) export exists ──
+        # In-progress migrations are always re-collected and their files updated.
+        $existingCompleted = Get-ChildItem -Path $batchOutputPath -Filter "$safeMailboxId-*-Statistics.csv" -ErrorAction SilentlyContinue |
+            Where-Object { $_.Name -notlike "$safeMailboxId-inProgress-Statistics.csv" }
+        if ($existingCompleted) {
+            Write-Host "  Skipped (already completed & exported): $mailboxId" -ForegroundColor DarkGray
+            continue
+        }
 
         Write-Host "  Processing: $mailboxId" -ForegroundColor Yellow
 
@@ -141,8 +150,6 @@ foreach ($batch in $batches) {
             # ── Build the file-name base ────────────────────────────────────
             $completedStatuses = @('Completed', 'CompletedWithWarning')
             $statusString = $stats.Status.ToString()
-
-            $safeMailboxId = Get-SafeFileName $mailboxId
 
             if ($statusString -in $completedStatuses -and $stats.CompletionTimestamp) {
                 $dateSuffix = ([datetime]$stats.CompletionTimestamp).ToString('yyyyMMdd-HHmmss')
@@ -165,12 +172,6 @@ foreach ($batch in $batches) {
 
             # ── Export statistics (all scalar properties, no Report blob) ───
             $statsPath = Join-Path -Path $batchOutputPath -ChildPath "$fileBase-Statistics.csv"
-
-            if (Test-Path -Path $statsPath) {
-                Write-Host "    Skipped (already exists): $fileBase" -ForegroundColor DarkGray
-                continue
-            }
-
             $stats |
                 Select-Object -ExcludeProperty Report,RolloutNames |
                 Export-Csv -Path $statsPath -NoTypeInformation -Encoding UTF8 -Force
