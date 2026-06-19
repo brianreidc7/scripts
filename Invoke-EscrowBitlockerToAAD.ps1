@@ -1,9 +1,9 @@
 <#
 .SYNOPSIS
-    Escrow (Backup) the existing Bitlocker key protectors to Azure AD (Intune)
+    Escrow (Backup) the existing Bitlocker key protectors to Entra ID (Intune)
 
 .DESCRIPTION
-    This script will verify the presence of existing recovery keys and have them escrowed (backed up) to Azure AD
+    This script will verify the presence of existing recovery keys and have them escrowed (backed up) to Entra ID
     Great for switching away from MBAM on-prem to using Intune and Azure AD for Bitlocker key management
 
 .INPUTS
@@ -46,7 +46,7 @@ function Test-Bitlocker ($BitlockerDrive) {
         Get-BitLockerVolume -MountPoint $BitlockerDrive -ErrorAction Stop
     } catch {
         Write-Output "Bitlocker was not found protecting the $BitlockerDrive drive. Terminating script!"
-        exit 11 #   Exit code 12 for when BitLocker not found
+        return $false
     }
 }
 
@@ -58,40 +58,47 @@ function Get-KeyProtectorId ($BitlockerDrive) {
 }
 
 function Invoke-BitlockerEscrow ($BitlockerDrive,$BitlockerKey) {
-    #Escrow the key into Azure AD
+    #Escrow the key into Entra ID
 
     foreach ($Key in $BitlockerKey) {
 
         try {
             BackupToAAD-BitLockerKeyProtector -MountPoint $BitlockerDrive -KeyProtectorId $Key -ErrorAction Stop
-            Write-Output "Attempted to escrow key in Azure AD - Please verify manually!"
+            Write-Output "Attempted to escrow key in Entra ID - Please verify manually!"
             
         } catch {
             Write-Error "This should never have happened? Debug me!"
-            exit 13 # Exit code 13 when failed to write to Entra ID
+            return $false
         }
 
     }
-    exit 0
+    return $true
 }
 
 #endregion functions
 
 #region execute
 
-Test-Bitlocker -BitlockerDrive $DriveLetter
+if (-not (Test-Bitlocker -BitlockerDrive $DriveLetter)) {
+    exit 11
+}
 $KeyProtectorId = Get-KeyProtectorId -BitlockerDrive $DriveLetter
 
 if ($KeyProtectorId.Count -gt 0) {
     # Recovery key(s) found so back them up
-    Invoke-BitlockerEscrow -BitlockerDrive $DriveLetter -BitlockerKey $KeyProtectorId 
+    if (-not (Invoke-BitlockerEscrow -BitlockerDrive $DriveLetter -BitlockerKey $KeyProtectorId)) {
+        exit 12
+    }
 } else {
     # No recovery keys found, so add one and backup this recovery key
     Add-BitLockerKeyProtector -MountPoint $DriveLetter -RecoveryPasswordProtector
-    
+
     $KeyProtectorId = Get-KeyProtectorId -BitlockerDrive $DriveLetter
-    Invoke-BitlockerEscrow -BitlockerDrive $DriveLetter -BitlockerKey $KeyProtectorId
+    if (-not (Invoke-BitlockerEscrow -BitlockerDrive $DriveLetter -BitlockerKey $KeyProtectorId)) {
+        exit 13
+    }
 }
+exit 0
 
 
 #endregion execute
