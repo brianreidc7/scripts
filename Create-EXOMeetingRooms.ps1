@@ -256,6 +256,7 @@ foreach ($room in $rooms) {
     if ($calParams.Count -gt 0) {
         Write-Host "   Calendar config..."
         Set-MailboxCalendarConfiguration -Identity $currentRoom @calParams -ErrorAction SilentlyContinue
+        Set-MailboxRegionalConfiguration -Identity $currentRoom -TimeZone $room.TimeZone -ErrorAction SilentlyContinue
     }
 
     # Set resource delegates if provided (semicolon-separated list in CSV)
