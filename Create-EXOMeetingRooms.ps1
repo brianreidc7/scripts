@@ -49,6 +49,9 @@ foreach ($room in $rooms) {
     if ([string]::IsNullOrEmpty($room.state) ) { $room.state = "" }
     if ([string]::IsNullOrEmpty($room.postalcode)) { $room.postalcode = "" }
     if ([string]::IsNullOrEmpty($room.CountryOrRegion)) { $room.CountryOrRegion = "" }
+
+    if ([string]::IsNullOrEmpty($room.department)) { $room.department = "" }
+    if ([string]::IsNullOrEmpty($room.company)) { $room.company = "" }
  
     if ($room.GeoCoordinates -notlike "*;*") { $room.GeoCoordinates = "" }  # Clear if not formatted properly (expected: latitude;longitude or latitude;longitude;altitude)
  
@@ -214,7 +217,8 @@ foreach ($room in $rooms) {
  
     Write-Host "   Contact..."
     Set-Place $currentRoom @contactParams
- 
+    Set-User $currentRoom -Company $room.company -Department $room.department -Confirm:$false -ErrorAction SilentlyContinue
+
     Write-Host "   Device..."
     Set-Place $currentRoom @deviceParams
  

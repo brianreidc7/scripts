@@ -91,6 +91,8 @@ if ($batches.Count -eq 0) {
 
 Write-Host "Found $($batches.Count) batch(es) to process." -ForegroundColor Cyan
 
+$batches = $batches | Sort-Object -Property Identity
+
 $totalExported = 0
 $totalFailed   = 0
 
