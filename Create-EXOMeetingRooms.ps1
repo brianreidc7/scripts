@@ -162,7 +162,7 @@ foreach ($room in $rooms) {
         }
 
         try {
-            $mailbox = New-Mailbox @newMailboxParams -ErrorAction Stop
+            $mailbox = New-Mailbox @newMailboxParams -ErrorAction Stop  | Out-Null
             $mailboxCreated = $true
             Write-Host "   Room mailbox created."
             if ($room.MTREnabled -eq 'True') {
@@ -174,6 +174,17 @@ foreach ($room in $rooms) {
             continue
         }
     }
+
+    # Often rooms report an error on New-Mailbox about 0x8004010F "An error occurred while trying to prepopulate newly created mailbox"
+    # So we update the mailbox to ensure those properties are set correctly. 
+    $updateMailboxParams = @{
+	    Identity		          = $room.identity
+        MicrosoftOnlineServicesID = $room.identity
+        Name                      = $room.DisplayName
+        Alias                     = $alias
+    }
+
+    Set-Mailbox @updateMailboxParams -ErrorAction Stop | Out-Null
 
     # Check if DisplayName has changed on an existing mailbox and update if so
     if ($mailbox -and $mailbox.DisplayName -ne $room.DisplayName) {
