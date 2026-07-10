@@ -115,12 +115,12 @@ foreach ($batch in $batches) {
         $migrationUsers = @(Get-MigrationUser -BatchId $batchName -ResultSize Unlimited -ErrorAction Stop)
     }
     catch {
-        Write-Warning "Could not retrieve migration users for batch '$batchName': $_"
+        Write-Warning "    Could not retrieve migration users for batch '$batchName': $_"
         continue
     }
 
     if ($migrationUsers.Count -eq 0) {
-        Write-Warning "No migration users found in batch '$batchName'."
+        Write-Warning "    No migration users found in batch '$batchName'."
         continue
     }
 
@@ -200,13 +200,17 @@ foreach ($batch in $batches) {
                     Out-File -Path $badItemsPath -Encoding UTF8 -Force
                 Write-Verbose "       BadItemsHistory -> $badItemsPath"
                 Write-Host "    Bad items history exported ($($stats.BadItemsEncountered) bad item(s)): $(Split-Path $badItemsPath -Leaf)" -ForegroundColor Yellow
+                # Get summary of the FailureType names for the batch summary
+                $FailureType = (($stats).Report.Failures.FailureType | Select -Unique)
+                Write-Host "    FailureType(s): $($FailureType -join ', ')" -ForegroundColor Red
+                
             }
 
             Write-Host "    Exported: $fileBase" -ForegroundColor Green
             $totalExported++
         }
         catch {
-            Write-Warning "Failed to export data for '$mailboxId': $_"
+            Write-Warning "  Failed to export data for '$mailboxId': $_"
             $totalFailed++
         }
     }
