@@ -206,6 +206,17 @@ foreach ($batch in $batches) {
                 
             }
 
+            if ($stats.LargeItemsEncountered -gt 0 -and
+                $stats.Report -and $stats.Report.LargeItemsHistory) {
+
+                $largeItemsPath = Join-Path -Path $batchOutputPath -ChildPath "$fileBase-LargeItemsHistory.txt"
+                $stats.Report.LargeItemsHistory |
+                    Out-File -Path $largeItemsPath -Encoding UTF8 -Force
+                Write-Verbose "       LargeItemsHistory -> $largeItemsPath"
+                Write-Host "    Large items history exported ($($stats.LargeItemsEncountered) large item(s)): $(Split-Path $largeItemsPath -Leaf)" -ForegroundColor Yellow
+            }
+
+    
             Write-Host "    Exported: $fileBase" -ForegroundColor Green
             $totalExported++
         }
