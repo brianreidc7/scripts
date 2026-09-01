@@ -115,7 +115,7 @@ function Get-CopyableParams {
 
         [string[]]$ExcludeProperties = @(
             'ZapEnabled', 'EnableSuspiciousSafetyTip', 'PolicyTag', 'EnableOrganizationBranding', 
-            'EnableBlockingEncryptedAttachments', 'QuarantineTagForBlockingEncryptedAttachments'
+            'EnableBlockingEncryptedAttachments', 'QuarantineTagForBlockingEncryptedAttachments','DirectoryObjectVersion'
         )
     )
 
