@@ -1,0 +1,252 @@
+<html><head><base href='https://docs.microsoft.com/' target='_blank'>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+	$(document).ready(function(){
+		$("tr").click(function(){
+		if(!$(this).hasClass("selected")){
+			$(this).addClass("selected");
+		} else {
+			$(this).removeClass("selected");
+		}
+
+		});
+		$("th").click(function(){
+		if(!$(this).hasClass("colselected")){
+			$(this).addClass("colselected");
+		} else {
+			$(this).removeClass("colselected");
+		}
+
+		});
+	});
+	</script><style>
+	.title{
+		display: block;
+		font-size: 2em;
+		margin-block-start: 0.67em;
+		margin-block-end: 0.67em;
+		margin-inline-start: 0px;
+		margin-inline-end: 0px;
+		font-weight: bold;
+		font-family: Segoe UI;
+	}
+	table{
+		border-collapse: collapse;
+		margin: 25px 0;
+		font-size: 0.9em;
+		font-family: Segoe UI;
+		min-width: 400px;
+		box-shadow: 0 0 20px rgba(0, 0, 0, 0.15) ;
+		text-align: center;
+	}
+	thead tr {
+		background-color: #009879;
+		color: #ffffff;
+		text-align: left;
+	}
+	th, td {
+		min-width: 250px;
+		padding: 12px 15px;
+		border: 1px solid lightgray;
+		vertical-align: top;
+	}
+	td {
+		vertical-align: top;
+	}
+	tbody tr {
+		border-bottom: 1px solid #dddddd;
+	}
+	tbody tr:nth-of-type(even) {
+		background-color: #f3f3f3;
+	}
+	tbody tr:nth-of-type(5),
+    tbody tr:nth-of-type(8),
+    body tr:nth-of-type(13),
+    tbody tr:nth-of-type(16),
+    tbody tr:nth-of-type(25),
+    tbody tr:nth-of-type(30) {
+		background-color: #36c;
+		text-aling:left !important
+	}
+	tbody tr:last-of-type {
+		border-bottom: 2px solid #009879;
+	}
+	tr:hover{
+	background-color: #ffea76!important;
+	}
+	.selected:not(th){
+		background-color:#ffea76!important;
+	}
+	th{
+		background-color:white !important;
+	}
+	.colselected {
+	background-color: rgb(93, 236, 213)!important;
+	}
+	table tr th:first-child,table tr td:first-child {
+		position: sticky;
+		inset-inline-start: 0;
+		background-color: #36c!important;
+		Color: #fff;
+		font-weight: bolder;
+		text-align: center;
+	}
+	</style></head><body> <div class='Title'>CA Export: Stone Point Capital - 10/15/2025 18:02:40 </div><table> <colgroup><col/><col/><col/><col/><col/><col/><col/><col/><col/><col/><col/><col/><col/><col/><col/><col/><col/><col/><col/><col/><col/><col/><col/><col/><col/><col/><col/><col/><col/><col/><col/><col/><col/><col/><col/><col/><col/></colgroup> <tr><th>CA Item</th><th>Policy 1</th><th>Policy 2</th><th>Policy 3</th><th>Policy 4</th><th>Policy 5</th><th>Policy 6</th><th>Policy 7</th><th>Policy 8</th><th>Policy 9</th><th>Policy 10</th><th>Policy 11</th><th>Policy 12</th><th>Policy 13</th><th>Policy 14</th><th>Policy 15</th><th>Policy 16</th><th>Policy 17</th><th>Policy 18</th><th>Policy 19</th><th>Policy 20</th><th>Policy 21</th><th>Policy 22</th><th>Policy 23</th><th>Policy 24</th><th>Policy 25</th><th>Policy 26</th><th>Policy 27</th><th>Policy 28</th><th>Policy 29</th><th>Policy 30</th><th>Policy 31</th><th>Policy 32</th><th>Policy 33</th><th>Policy 34</th><th>Policy 35</th><th>Policy 36</th></tr> <tr><td>Name</td><td>2023 CA101b MFA Everywhere</td><td>2023 CA102a Compliant Device Required Exception Report</td><td>2023 CA102a Compliant Device Required Windows, Mac, iOS. Except Apps OWA, Sharepoint, Dealcloud Pitchbook ComplianceAlpha LastPass, Skedda, Zoom, Rights Management, Mimecast and Except Devices Android</td><td>2023 CA102b Compliant Device Required Windows, Mac, NOT iOS (Mimecast Only)</td><td>2023 CA103 Block if outside whitelist countries</td><td>2023 CA104 PROD ALL Block Legacy Auth</td><td>2023 CA105 All Administrator Secure MFA &amp; 8 Hour Session Length</td><td>2023 CA106 Require MFA for Coretelligent+Elteni</td><td>2023 CA107 Outlook MacOS Deny Policy</td><td>2023 CA108 MFA for device join</td><td>2023 CA201a Block OWA&amp;Sharepoint from Browser. Except Compliant machines and citrix servers</td><td>2023 CA201b Allow OWA/SPO Without Downloads on Non Compliant Devices sign in every hour</td><td>2023 CA201c Allow OWA/SPO Full Access on Non Compliant Devices Sign In every hour</td><td>2023 CA202a Exchange/Outlook&amp;SharePoint Desktop/Mobile Client requires Compliant Device on Win, Mac, XXAndroidXX (not iOS). XXAndroid is never complaint, so blockedXX</td><td>2023 CA202b Exchange/Outlook&amp;SharePoint Desktop/Mobile Client requires Compliant Device on iOS for users allowed to sync to contacts/cal (and mail exceptions)</td><td>2023 CA202c iOS - Exchange/Outlook&amp;SharePoint Desktop/Mobile Client requires App Protection Policy. Users excluded from sync Contact/Calendar</td><td>2023 CA202c(2) iOS - SharePoint Desktop/Mobile Client requires App Protection Policy. All Users excluding email sync</td><td>2023 CA202d Android - Exchange/Outlook&amp;SharePoint Desktop/Mobile Client requires App Protection Policy</td><td>2023 CA203 Dealcloud session length 4hrs on Non Compliant Devices</td><td>2023 CA302 Elteni+Coretelligent Azure AD Mgmt 2FA Policy  - ADD Coretelligent IP Sources</td><td>2023 CA303a Block Optima outside Optima Locations</td><td>2023 CA303b Block Optima All apps except Global Relay App</td><td>2023 CA303c Block Global Relay External Lawyer Access Group on All Apps but GR</td><td>2023 CA304 Citrix Blocked from Non Trusted Networks</td><td>2023 CA305a Block Loandocs Unless Using Allowed Apps</td><td>2023 CA305b Block LoanDocs Except Findox IPs</td><td>2023 CA401 Guests Session Length</td><td>2023 CA501 High Risk Admin Accounts Blocked</td><td>2023 CA502 High Risk User Accounts Change Password</td><td>2023 CA503 Medium or High Risk Sign-In Requires MFA</td><td>2023 CA902 Service Accounts OnPrem Only</td><td>CA204 Block access for unknown or unsupported device platform</td><td>DECOM - Remove Dec 2025 - MAM iOS and Android - should apply to all rather than o365 InTune Registration</td><td>DELETE on 10-20-25 2023 CA101a MFA DUO as CustomControl</td><td>Microsoft-managed: Multifactor authentication and reauthentication for risky sign-ins</td><td>Microsoft-managed: Multifactor authentication for admins accessing Microsoft Admin Portals</td></tr> <tr><td>PolicyID</td><td>96b088c4-deab-4ffd-a8b6-93e30f655425</td><td>fdfb925f-8e45-44b9-9d3a-91b442d80440</td><td>c860f971-3bb1-40c5-a3de-0766b8f748f5</td><td>5a7bee8d-921b-45e0-affa-bb18a48e31b3</td><td>8f71f69e-4578-4322-a660-eb115e3aff6e</td><td>ca1e0e61-9bd2-4b38-a58d-d9ec4ec2f687</td><td>f55ba10d-0ecb-423b-90a4-6df65de0c381</td><td>f0f0a3b4-b33e-4900-a3b3-555e4e93725c</td><td>b3fee062-0714-4bdd-a842-8e66e42dbd4a</td><td>65500337-953c-4caf-809b-5389819cd6c6</td><td>f07ab414-38b0-40f5-9277-d1469d458dfe</td><td>42853210-50ab-4d1e-8b8e-d5b1fcfce879</td><td>81b20732-f86e-4fc4-937e-0dfc21fe7506</td><td>0c3ef8c8-346e-4b98-a146-9d99a4095262</td><td>d364236d-5409-4c01-933c-5dbccd593dc2</td><td>5af0f8fc-3c59-4431-8ce5-560fb5d8fbb3</td><td>8156a49b-5a7c-4fed-9914-ad4188fb8d96</td><td>94371fb9-e421-4914-9a5b-f1c048978e1a</td><td>1d9a4424-04ad-4187-af00-d650af849a2a</td><td>d9f18b3f-4a5a-4983-a50f-01ea4ba8c22e</td><td>208c1777-f447-4e76-b6ae-d9724f416190</td><td>5a22774c-4859-4ca2-a7f0-6125444949ff</td><td>8c8bdc7d-dab2-474f-a77e-14e61b2bfc92</td><td>be3e4d79-c736-4b40-a53d-bbdbb7aa1e50</td><td>57285067-d727-48fc-9890-3281830bf0c6</td><td>ce26e4fe-71aa-439a-b1a8-f9ab43fff145</td><td>2a3c1784-a263-461e-90e4-3ffbe0295c11</td><td>d35274fd-c830-46a4-8fca-1b754a85f1ba</td><td>829cc96d-e30c-4ceb-90b2-d2182ae02491</td><td>e78507b7-85ef-472d-8e4d-8fc79a0fbb7c</td><td>ab90941c-46a6-455b-b460-c2cfb9ae77f2</td><td>5a17f59d-1b5b-4e61-b632-69b44b82f1ed</td><td>2bc3175f-012a-4c51-96d0-09c34bc7ed84</td><td>6874def8-ad74-41c4-b680-dd07e562a40b</td><td>7b3f06d3-da81-4cd4-8065-ae984c66ed54</td><td>ab92e28f-a888-4ef1-b34d-3fd9342c4117</td></tr> <tr><td>Status</td><td>enabled</td><td>enabledForReportingButNotEnforced</td><td>enabled</td><td>enabled</td><td>enabled</td><td>enabled</td><td>enabled</td><td>enabled</td><td>enabled</td><td>enabled</td><td>enabled</td><td>enabled</td><td>enabled</td><td>enabled</td><td>enabled</td><td>enabled</td><td>enabled</td><td>enabled</td><td>enabled</td><td>enabled</td><td>enabled</td><td>enabled</td><td>enabled</td><td>enabled</td><td>enabled</td><td>enabled</td><td>enabled</td><td>enabled</td><td>enabled</td><td>enabled</td><td>enabled</td><td>enabledForReportingButNotEnforced</td><td>disabled</td><td>disabled</td><td>disabled</td><td>disabled</td></tr> <tr><td>Users</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr> <tr><td>UsersInclude</td><td>All</td><td>All</td><td>All</td><td>All</td><td>All</td><td>All</td><td>Application Administrator, 
+Authentication Administrator, 
+Cloud Application Administrator, 
+Conditional Access Administrator, 
+Exchange Administrator, 
+Global Administrator, 
+Helpdesk Administrator, 
+Password Administrator, 
+Privileged Authentication Administrator, 
+Privileged Role Administrator, 
+Security Administrator, 
+SharePoint Administrator, 
+User Administrator, 
+Teams Administrator, 
+Intune Administrator, 
+Global Reader</td><td>Coretelligent, 
+Elteni Admin</td><td>All</td><td>All</td><td>All</td><td>CA 201 OWA-SPO No Downloads Allowed On NonCompliant Devices</td><td>CA 201 OWA-SPO Full Access Allowed On NonCompliant Devices</td><td>All</td><td>2023 InTune - iOS Contacts &amp; Calendar Sync via ActiveSync</td><td>All</td><td>All</td><td>All</td><td>All</td><td>Coretelligent, 
+Elteni Admin</td><td>Roop Randhawa Optima</td><td>Roop Randhawa Optima</td><td>Global Relay External Lawyer Access</td><td>All</td><td>Findox Loandocs</td><td>Findox Loandocs</td><td></td><td>Global Administrator, 
+Intune Administrator, 
+Exchange Administrator, 
+Helpdesk Administrator, 
+User Administrator, 
+Security Administrator, 
+SharePoint Administrator, 
+Conditional Access Administrator</td><td>All</td><td>All</td><td>o365 Cloud NoMFA</td><td>All</td><td>None</td><td>Chris Regan, 
+rMerge</td><td>Conditional Access: Risky sign-in multifactor authentication (a4ea6c0f-b8fb-4d29-91f1-9f8cf0601e98)</td><td>Global Administrator, 
+Security Administrator, 
+SharePoint Administrator, 
+Exchange Administrator, 
+Conditional Access Administrator, 
+Helpdesk Administrator, 
+Billing Administrator, 
+User Administrator, 
+Authentication Administrator, 
+Application Administrator, 
+Cloud Application Administrator, 
+Password Administrator, 
+Privileged Authentication Administrator, 
+Privileged Role Administrator</td></tr> <tr><td>UsersExclude</td><td>SVC-SharepointDMSSync, 
+Findox Loandocs, 
+o365 Cloud BreakGlass Group, 
+o365 Cloud NoMFA, 
+2023 CA101 MFA Everywhere Exceptions , 
+Global Relay External Lawyer Access, 
+EXO High Volume Email Accounts</td><td>Jose Caceres Admin, 
+Chris Regan, 
+David Uxa, 
+Brian Reid, 
+Roop Randhawa Optima, 
+Coretelligent, 
+Ivan Flores Admin, 
+Ebin Maddox, 
+Brian Reid Admin, 
+SVC-O365, 
+Helpdesk, 
+o365 Cloud BreakGlass Group, 
+o365 Cloud NoMFA</td><td>Jose Caceres Admin, 
+Chris Regan, 
+David Uxa, 
+Brian Reid, 
+Roop Randhawa Optima, 
+Coretelligent, 
+Ivan Flores Admin, 
+Ebin Maddox, 
+Brian Reid Admin, 
+SVC-O365, 
+Helpdesk, 
+Findox Loandocs, 
+Justin Kane, 
+Elteni Admin, 
+o365 Cloud BreakGlass Group, 
+o365 Cloud NoMFA, 
+Global Relay External Lawyer Access</td><td>Coretelligent, 
+SVC-O365, 
+Elteni Admin, 
+o365 Cloud BreakGlass Group, 
+o365 Cloud NoMFA</td><td>Ivan Flores Admin, 
+o365 Cloud BreakGlass Group, 
+CA Country Blacklist Exception</td><td>EXO High Volume Email Accounts</td><td>Jose Caceres Admin, 
+o365 Cloud NoMFA, 
+o365 Cloud BreakGlass Group</td><td></td><td>O365 - Outlook Mac User Entra</td><td></td><td>Chris Regan, 
+Helpdesk, 
+Coretelligent, 
+Elteni Admin, 
+o365 Cloud BreakGlass Group, 
+CA 201 OWA-SPO No Downloads Allowed On NonCompliant Devices, 
+CA 201 OWA-SPO Full Access Allowed On NonCompliant Devices</td><td>CA 201 OWA-SPO Full Access Allowed On NonCompliant Devices</td><td></td><td>Brian Reid Admin, 
+Brian Reid, 
+Elteni Admin, 
+o365 Cloud BreakGlass Group, 
+2023 Temporary Conditional Access Exception Group, 
+EXO High Volume Email Accounts</td><td>o365 Cloud BreakGlass Group</td><td>o365 Cloud BreakGlass Group, 
+090c8dec-7468-4a21-b7de-9547e0ddc0e2, 
+90b35d6c-6eb9-4af1-88f4-a6c03c424aba, 
+2023 InTune - iOS Contacts &amp; Calendar Sync via ActiveSync, 
+2023 InTune - iOS Sync Mail, Contact, Calendar</td><td>o365 Cloud BreakGlass Group, 
+90b35d6c-6eb9-4af1-88f4-a6c03c424aba, 
+2023 InTune - iOS Sync Mail, Contact, Calendar</td><td>o365 Cloud BreakGlass Group</td><td></td><td></td><td></td><td></td><td></td><td>o365 Cloud BreakGlass Group</td><td></td><td></td><td></td><td>o365 Cloud BreakGlass Group</td><td>Nicolas Zerbib, 
+Steve Friedman, 
+James R. Matthews, 
+James Carey, 
+rMerge, 
+Chris Regan, 
+o365 Cloud BreakGlass Group</td><td>Steve Friedman, 
+Nicolas Zerbib, 
+James R. Matthews, 
+James Carey, 
+Findox Loandocs, 
+SVC-SharepointDMSSync, 
+o365 Cloud BreakGlass Group, 
+Global Relay External Lawyer Access, 
+o365 Cloud NoMFA, 
+2023 CA101 MFA Everywhere Exceptions </td><td>ZoomRoom</td><td>EXO High Volume Email Accounts</td><td></td><td></td><td></td><td>o365 Cloud BreakGlass Group</td></tr> <tr><td>TargetResources</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr> <tr><td>ApplicationsIncluded</td><td>All</td><td>Mimecast Portal SPC SSO, 
+Zoom SSO</td><td>All</td><td>Mimecast Portal SPC SSO</td><td>All</td><td>All</td><td>All</td><td>All</td><td>Office 365 Exchange Online, 
+Office 365 SharePoint Online</td><td></td><td>Office 365 Exchange Online, 
+Office 365 SharePoint Online</td><td>Office 365 SharePoint Online, 
+Office 365 Exchange Online</td><td>Office 365 Exchange Online, 
+Office 365 SharePoint Online</td><td>Office 365 SharePoint Online, 
+Office 365 Exchange Online</td><td>Office 365 SharePoint Online, 
+Office 365 Exchange Online</td><td>Office 365 SharePoint Online, 
+Office 365 Exchange Online</td><td>Office 365 SharePoint Online</td><td>Office 365 SharePoint Online, 
+Office 365 Exchange Online</td><td>SPC DealCloud</td><td>All</td><td>All</td><td>All</td><td>All</td><td>All</td><td>All</td><td>All</td><td>All</td><td>All</td><td>All</td><td>All</td><td>All</td><td>All</td><td>All</td><td>All</td><td>All</td><td>MicrosoftAdminPortals</td></tr> <tr><td>ApplicationsExcluded</td><td>Microsoft Rights Management Services, 
+Microsoft.Intune</td><td>Microsoft Rights Management Services, 
+Skedda, 
+SPC Compliance Alpha SSO, 
+Office 365 Exchange Online, 
+Office 365 SharePoint Online, 
+Microsoft.Intune</td><td>Microsoft Rights Management Services, 
+Mimecast Portal SPC SSO, 
+Skedda, 
+Zoom SSO, 
+SPC Compliance Alpha SSO, 
+Office 365 Exchange Online, 
+Office 365 SharePoint Online, 
+Microsoft.Intune</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>Global Relay SSO Feb 2022</td><td>Global Relay SSO Feb 2022</td><td></td><td>Intralinks SSO, 
+SPC DataSiteOne</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>Microsoft Rights Management Services</td><td>Microsoft Rights Management Services, 
+Microsoft.Intune</td><td></td><td></td></tr> <tr><td>userActions</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>urn:user:registerdevice</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr> <tr><td>AuthContext</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr> <tr><td>Network</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr> <tr><td>LocationsIncluded</td><td></td><td></td><td></td><td></td><td>All</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>Trusted - Coretel Offices, 
+Trusted - Elteni IPs, 
+Trusted - SP Offices</td><td>All</td><td></td><td></td><td>All</td><td></td><td>All</td><td></td><td></td><td></td><td></td><td>All</td><td></td><td></td><td></td><td></td><td></td></tr> <tr><td>LocationsExcluded</td><td></td><td></td><td></td><td></td><td>Countries Whitelist , 
+Trusted - SP Offices</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>Optima Offices, 
+Trusted - SP Offices</td><td></td><td></td><td>AllTrusted</td><td></td><td>Findox Source IPs</td><td></td><td></td><td></td><td></td><td>AllTrusted</td><td></td><td></td><td></td><td></td><td></td></tr> <tr><td>Conditions</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr> <tr><td>UserRisk</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>high</td><td>high</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr> <tr><td>SignInRisk</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>high, 
+medium</td><td></td><td></td><td></td><td></td><td>high</td><td></td></tr> <tr><td>PlatformsInclude</td><td></td><td>all</td><td></td><td>all</td><td></td><td></td><td></td><td></td><td>macOS</td><td>all</td><td></td><td></td><td></td><td>all</td><td>iOS</td><td>iOS</td><td>iOS</td><td>android</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>all</td><td>android, 
+iOS</td><td></td><td></td><td></td></tr> <tr><td>PlatformsExclude</td><td></td><td>android, 
+iOS, 
+windowsPhone, 
+macOS, 
+linux</td><td></td><td>iOS</td><td></td><td></td><td></td><td></td><td></td><td>iOS</td><td></td><td></td><td></td><td>android, 
+iOS</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>android, 
+iOS, 
+windows, 
+windowsPhone, 
+macOS, 
+linux</td><td></td><td></td><td></td><td></td></tr> <tr><td>ClientApps</td><td>all</td><td>all</td><td>all</td><td>all</td><td>all</td><td>exchangeActiveSync, 
+other</td><td>exchangeActiveSync, 
+browser, 
+mobileAppsAndDesktopClients, 
+other</td><td>all</td><td>mobileAppsAndDesktopClients</td><td>all</td><td>browser</td><td>browser</td><td>browser</td><td>mobileAppsAndDesktopClients</td><td>mobileAppsAndDesktopClients</td><td>mobileAppsAndDesktopClients</td><td>browser, 
+mobileAppsAndDesktopClients</td><td>mobileAppsAndDesktopClients</td><td>all</td><td>browser, 
+mobileAppsAndDesktopClients</td><td>all</td><td>all</td><td>all</td><td>all</td><td>all</td><td>all</td><td>all</td><td>all</td><td>all</td><td>all</td><td>all</td><td>all</td><td>mobileAppsAndDesktopClients</td><td>all</td><td>all</td><td>all</td></tr> <tr><td>DevicesIncluded</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr> <tr><td>DevicesExcluded</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr> <tr><td>DeviceFilters</td><td></td><td></td><td></td><td>device.displayName -startsWith &quot;SPC-CT1&quot;</td><td></td><td></td><td></td><td></td><td></td><td></td><td>device.isCompliant -eq True -or device.displayName -startsWith &quot;spc-ct&quot; -or device.displayName -startsWith &quot;spc-rm&quot;</td><td>device.isCompliant -eq True -or device.displayName -startsWith &quot;spc-ct&quot;</td><td>device.isCompliant -eq True -or device.displayName -startsWith &quot;spc-ct&quot;</td><td>device.displayName -startsWith &quot;SPC-CT1&quot;</td><td></td><td></td><td></td><td></td><td>device.isCompliant -eq True</td><td></td><td></td><td></td><td></td><td>device.displayName -startsWith &quot;SPC-CT1&quot;</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>device.isCompliant -eq True</td><td></td><td></td><td></td></tr> <tr><td>GrantControls</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr> <tr><td>BuiltInControls</td><td>mfa</td><td>compliantDevice</td><td>compliantDevice</td><td>compliantDevice</td><td>block</td><td>block</td><td></td><td></td><td>block</td><td>mfa</td><td>block</td><td></td><td></td><td>compliantDevice</td><td>compliantDevice</td><td>compliantApplication</td><td>compliantApplication</td><td>compliantApplication</td><td></td><td>mfa</td><td>block</td><td>block</td><td>block</td><td>block</td><td>block</td><td>block</td><td></td><td>block</td><td>passwordChange</td><td></td><td>block</td><td>block</td><td>approvedApplication</td><td></td><td>mfa</td><td>mfa</td></tr> <tr><td>TermsOfUse</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr> <tr><td>CustomControls</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>RequireDuoMfa</td><td>RequireDuoMfa</td><td></td><td></td></tr> <tr><td>GrantOperator</td><td>OR</td><td>OR</td><td>OR</td><td>OR</td><td>OR</td><td>OR</td><td>OR</td><td>OR</td><td>OR</td><td>OR</td><td>OR</td><td></td><td></td><td>OR</td><td>OR</td><td>OR</td><td>OR</td><td>OR</td><td></td><td>OR</td><td>OR</td><td>OR</td><td>OR</td><td>OR</td><td>OR</td><td>OR</td><td></td><td>OR</td><td>AND</td><td>OR</td><td>OR</td><td>OR</td><td>AND</td><td>OR</td><td>OR</td><td>OR</td></tr> <tr><td>SessionControls</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr> <tr><td>SessionControlsAdditionalProperties</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr> <tr><td>ApplicationEnforcedRestrictionsIsEnabled</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>True</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr> <tr><td>ApplicationEnforcedRestrictionsAdditionalProperties</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr> <tr><td>CloudAppSecurityType</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr> <tr><td>CloudAppSecurityIsEnabled</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr> <tr><td>CloudAppSecurityAdditionalProperties</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr> <tr><td>DisableResilienceDefaults</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr> <tr><td>PersistentBrowserIsEnabled</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr> <tr><td>PersistentBrowserMode</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr> <tr><td>PersistentBrowserAdditionalProperties</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr> <tr><td>SignInFrequencyAuthenticationType</td><td></td><td></td><td></td><td></td><td></td><td></td><td>primaryAndSecondaryAuthentication</td><td>primaryAndSecondaryAuthentication</td><td></td><td></td><td></td><td>primaryAndSecondaryAuthentication</td><td>primaryAndSecondaryAuthentication</td><td></td><td></td><td></td><td></td><td></td><td>primaryAndSecondaryAuthentication</td><td>primaryAndSecondaryAuthentication</td><td></td><td></td><td></td><td></td><td></td><td></td><td>primaryAndSecondaryAuthentication</td><td></td><td>primaryAndSecondaryAuthentication</td><td>primaryAndSecondaryAuthentication</td><td></td><td></td><td>primaryAndSecondaryAuthentication</td><td></td><td>primaryAndSecondaryAuthentication</td><td></td></tr> <tr><td>SignInFrequencyInterval</td><td></td><td></td><td></td><td></td><td></td><td></td><td>timeBased</td><td>timeBased</td><td></td><td></td><td></td><td>timeBased</td><td>timeBased</td><td></td><td></td><td></td><td></td><td></td><td>timeBased</td><td>timeBased</td><td></td><td></td><td></td><td></td><td></td><td></td><td>timeBased</td><td></td><td>everyTime</td><td>everyTime</td><td></td><td></td><td>timeBased</td><td></td><td>everyTime</td><td></td></tr> <tr><td>SignInFrequencyIsEnabled</td><td></td><td></td><td></td><td></td><td></td><td></td><td>True</td><td>True</td><td></td><td></td><td></td><td>True</td><td>True</td><td></td><td></td><td></td><td></td><td></td><td>True</td><td>True</td><td></td><td></td><td></td><td></td><td></td><td></td><td>True</td><td></td><td>True</td><td>True</td><td></td><td></td><td>True</td><td></td><td>True</td><td></td></tr> <tr><td>SignInFrequencyType</td><td></td><td></td><td></td><td></td><td></td><td></td><td>hours</td><td>hours</td><td></td><td></td><td></td><td>hours</td><td>hours</td><td></td><td></td><td></td><td></td><td></td><td>hours</td><td>hours</td><td></td><td></td><td></td><td></td><td></td><td></td><td>hours</td><td></td><td></td><td></td><td></td><td></td><td>days</td><td></td><td></td><td></td></tr> <tr><td>SignInFrequencyValue</td><td></td><td></td><td></td><td></td><td></td><td></td><td>8</td><td>4</td><td></td><td></td><td></td><td>1</td><td>1</td><td></td><td></td><td></td><td></td><td></td><td>4</td><td>4</td><td></td><td></td><td></td><td></td><td></td><td></td><td>12</td><td></td><td></td><td></td><td></td><td></td><td>14</td><td></td><td></td><td></td></tr> <tr><td>SignInFrequencyAdditionalProperties</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr> </table>

@@ -76,7 +76,8 @@ try {
         $batches = @(Get-MigrationBatch -Identity $BatchName -ErrorAction Stop)
     }
     else {
-        $batches = @(Get-MigrationBatch -ErrorAction Stop)
+        # Retrieve all batches and sort by Status (descending) so that syncing and then completed batches are processed first
+        $batches = @(Get-MigrationBatch -ErrorAction Stop | Sort-Object -Property Status -Descending)
     }
 }
 catch {
@@ -201,8 +202,11 @@ foreach ($batch in $batches) {
                 Write-Verbose "       BadItemsHistory -> $badItemsPath"
                 Write-Host "    Bad items history exported ($($stats.BadItemsEncountered) bad item(s)): $(Split-Path $badItemsPath -Leaf)" -ForegroundColor Yellow
                 # Get summary of the FailureType names for the batch summary
-                $FailureType = (($stats).Report.Failures.FailureType | Select -Unique)
-                Write-Host "    FailureType(s): $($FailureType -join ', ')" -ForegroundColor Red
+                $FailureType = (($stats).Report.Failures.FailureType | Select -Unique |
+                    Where-Object { $_ -notmatch 'Transient|SourcePrincipalMappingException|TargetPrincipalMappingException' })
+                if ($FailureType) {
+                    Write-Host "    FailureType(s): $($FailureType -join ', ')" -ForegroundColor Red
+                }
                 
             }
 
