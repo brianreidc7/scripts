@@ -2,6 +2,7 @@
 <#
 .SYNOPSIS
     Duplicates the Standard Preset Security Policy in Microsoft 365.
+    A partner script called Compare-StandardPresetSecurityPolicy.ps1 is also available to compare the current preset policies with the duplicate policies created by this script.
 
 .DESCRIPTION
     Creates copies of all policies bundled within the Standard Preset Security Policy:
